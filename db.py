@@ -11,6 +11,8 @@ Base=declarative_base()
 
 Session = sessionmaker(bind=engine)
 
+
+
 class DaoFactory:
     @staticmethod
     def getDirDao():
@@ -46,9 +48,21 @@ class DirDao:
         session.commit()
         return dir.id
     
-if __name__ == '__main__':
-    Base.metadata.create_all(engine)
+    def getAll(self):
+        session=Session()
+        results=session.query(Dir).all()
+        return results
     
+    def getDirById(self,id):
+        session=Session()
+        dir=session.query(Dir).filter(Dir.id == id).first()
+        return dir
+
+#Last line to init all the DB, dont think its a good place to put this    
+Base.metadata.create_all(engine)
+
+if __name__ == '__main__':
+        
     session=Session()
     
     user=Dir('c:/test')

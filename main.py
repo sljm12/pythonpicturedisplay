@@ -1,8 +1,10 @@
+#!/Python25/python
 import web
 import repos
 
 urls=('/','index',
-      '/showFolder','ShowFolder')
+      '/showFolder','ShowFolder',
+      '/showIndex','ShowIndex')
 
 app=web.application(urls,globals())
 render=web.template.render('template/');
@@ -16,13 +18,15 @@ class index:
 class ShowFolder:
     def GET(self):
         i=web.input(name=None)
-        folder=db.FolderRepos()
+        folder=repos.ReposFactory.getFolderRepos()
         folderPictures=folder.getPicturesInFolder(i.name)
         return render.showFolder(i.name,folderPictures)
 
 class ShowIndex:
     def GET(self):
-        return 'ShowIndex'
+        folder=repos.ReposFactory.getFolderRepos()
+        folderNames=folder.getAllFolders()
+        return render.showIndex(folderNames)
     
 if __name__ == '__main__':
     app.run()

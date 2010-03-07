@@ -1,4 +1,4 @@
-import utils
+import utils,db
 
 class ReposFactory:
     '''
@@ -6,14 +6,21 @@ class ReposFactory:
     '''
     @staticmethod
     def getFolderRepos():
-        return FolderRepos()
+        return FolderRepos(db.DaoFactory.getDirDao())
 
 class FolderRepos:
+    def __init__(self,dirDao):
+        self.dirDao=dirDao
+        
+    def getAllFolders(self):        
+        return self.dirDao.getAll()
+    
     def getRealFolderPath(self,id):
         '''
         Returns the actual folder path in the system
         '''
-        return 'C:/Resources/HtmlPopup/images'
+        dir=self.dirDao.getDirById(id)
+        return dir.real_path
     
     def getWebFolderPath(self,id):
         '''
