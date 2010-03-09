@@ -18,7 +18,7 @@ def visit(arg,dirname,names):
     '''
     print 'Processing '+dirname
     dirDao=db.DaoFactory.getDirDao()
-    dirDao.save(db.Dir(dirname))
+    dirDao.save(db.Dir(dirname,os.path.basename(dirname)))
 
 if __name__ == '__main__':
     parser=OptionParser()
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     parser.add_option("-c","--crawl",action="store",type="string",dest="directory",
                       help="Crawl the Directory and add information to the db")
     
-    args=['-c','c:\\temp\\pics']
+    args=['-c','c:/temp/pics']
     (options,arg)= parser.parse_args(args)
     parser.print_help()
     db.Base.metadata.create_all(db.engine)
@@ -38,6 +38,7 @@ if __name__ == '__main__':
     if options.drop_create == True:
         print 'Dropping tables'
         db.Base.metadata.drop_all(db.engine)
+        db.Base.metadata.create_all(db.engine)
     if options.directory != None:
         print 'Crawling'
         crawl(options.directory)

@@ -23,12 +23,14 @@ class Dir(Base):
     
     id=Column(Integer,primary_key=True)
     real_path=Column(String)
+    name=Column(String)
     
-    def __init__(self,real_path):
+    def __init__(self,real_path,name):
         self.real_path=real_path
+        self.name=name
     
     def __repr__(self):
-        return "<Dir '%s')>" % (id)
+        return "<Dir '%s' '%s' '%s')>" % (id,self.real_path,self.name)
 
 class DirDao:
     __instance__=None
