@@ -18,26 +18,26 @@ class FolderRepos:
     
     def getRealFolderPath(self,id):
         '''
-        Returns the actual folder path in the system
+        Returns the Dir object as specificed by the id
         '''
         dir=self.dirDao.getDirById(id)
-        return dir.real_path
+        return dir
     
     def getWebFolderPath(self,id):
         '''
         Returns the web folder path as defined by the id
         '''
-        realPath=self.getRealFolderPath(id)
+        directory=self.getRealFolderPath(id)
         
         
-        return self.pathConverter.convertRealToWeb(realPath)
+        return self.pathConverter.convertRealToWeb(directory.real_path)
     
     def getPicturesInFolder(self,id):
         '''
         Get the pictures from a particular path
         '''
-        realPath=self.getRealFolderPath(id)  
-        fileFinder=utils.FileFinder(realPath)
+        directory=self.getRealFolderPath(id)  
+        fileFinder=utils.FileFinder(directory.real_path)
         files=fileFinder.findFile('jpg')
         return self.convertToWebpath(id,files)
     
@@ -50,7 +50,7 @@ class FolderRepos:
 
 class RealPathWebConvert:
     def convertRealToWeb(self,path):
-        webpath=path.replace('c:\\temp\pics','http://localhost/temp',1)
+        webpath=path.replace('c:/temp/pics','http://localhost/temp',1)
         return webpath.replace('\\','/')
     
 if __name__ == '__main__':

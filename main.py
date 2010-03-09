@@ -1,4 +1,4 @@
-#!/Python25/python
+#!/usr/bin/python.exe
 import web
 import repos
 
