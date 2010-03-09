@@ -6,11 +6,12 @@ class ReposFactory:
     '''
     @staticmethod
     def getFolderRepos():
-        return FolderRepos(db.DaoFactory.getDirDao())
+        return FolderRepos(db.DaoFactory.getDirDao(),RealPathWebConvert())
 
 class FolderRepos:
-    def __init__(self,dirDao):
+    def __init__(self,dirDao,pathConverter):
         self.dirDao=dirDao
+        self.pathConverter=pathConverter
         
     def getAllFolders(self):        
         return self.dirDao.getAll()
@@ -26,8 +27,10 @@ class FolderRepos:
         '''
         Returns the web folder path as defined by the id
         '''
+        realPath=self.getRealFolderPath(id)
         
-        return '/test'
+        
+        return self.pathConverter.convertRealToWeb(realPath)
     
     def getPicturesInFolder(self,id):
         '''
@@ -45,6 +48,11 @@ class FolderRepos:
             filesList.append(webPath+'/'+f)
         return filesList
 
+class RealPathWebConvert:
+    def convertRealToWeb(self,path):
+        webpath=path.replace('c:\\temp\pics','http://localhost/temp',1)
+        return webpath.replace('\\','/')
+    
 if __name__ == '__main__':
     f=ReposFactory.getFolderRepos()
     files=f.getPicturesInFolder(1)
