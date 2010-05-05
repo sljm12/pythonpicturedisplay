@@ -50,7 +50,7 @@ class FolderRepos:
 
 class RealPathWebConvert:
     def convertRealToWeb(self,path):
-        webpath=path.replace('c:/temp/pics','http://localhost/temp',1)
+        webpath=path.replace('c:/temp/pics','http://localhost/pics',1)
         return webpath.replace('\\','/')
     
 if __name__ == '__main__':

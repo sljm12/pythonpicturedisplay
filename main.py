@@ -26,7 +26,19 @@ class ShowIndex:
     def GET(self):
         folder=repos.ReposFactory.getFolderRepos()
         folderNames=folder.getAllFolders()
-        return render.showIndex(folderNames)
+        folderMap={}
+        for fName in folderNames:
+            picture=self.getFirstPictureInFolder(fName)
+            folderMap[fName]=picture
+        return render.showIndex(folderMap)
+    
+    def getFirstPictureInFolder(self,folderName):
+        folder=repos.ReposFactory.getFolderRepos()
+        pictures=folder.getPicturesInFolder(folderName.id)
+        if len(pictures) > 0:
+            return pictures[0]
+        else:
+            return ''
     
 if __name__ == '__main__':
     app.run()

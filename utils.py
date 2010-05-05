@@ -6,12 +6,19 @@ class FileFinder:
         self.folderPath=folderPath
     
     def getFiles(self):
+        '''
+        get the list of files in the folderPath
+        '''
         if os.path.exists(self.folderPath) and os.path.isdir(self.folderPath):
             return os.listdir(self.folderPath)
         else:
             return ()
             
     def findFile(self,extension):
+        '''
+        Find a file with a specific extention ie. like jpg
+        extention = extention of the file that you want to find
+        '''
         filesList=[]
         files=self.getFiles()
         

@@ -1,3 +1,4 @@
-$def with (folderNames)
-$for f in folderNames:
-	<a href="/showFolder?name=${f.id}"> $f.real_path</a><br>
+$def with (folderMap)
+$for f in folderMap.keys():
+	<img src="${folderMap[f]}" height=100/><br>
+	<a href="/showFolder?name=${f.id}">$f.real_path</a><br>
