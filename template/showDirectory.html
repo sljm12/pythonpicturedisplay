@@ -1,0 +1,9 @@
+$def with (webDir,dir,files,dirs)
+In folder $dir<br>
+$for d in dirs:
+	$if webDir != None:
+		<a href="/showDirectory?Dir=$(webDir+d)">$d</a><br>
+	$else:
+		<a href="showDirectory?Dir=$d">$d</a><br>
+$for f in files:
+	$f<br>

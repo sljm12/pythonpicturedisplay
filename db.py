@@ -11,8 +11,6 @@ Base=declarative_base()
 
 Session = sessionmaker(bind=engine)
 
-
-
 class DaoFactory:
     @staticmethod
     def getDirDao():

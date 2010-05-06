@@ -1,4 +1,19 @@
 $def with (folderMap)
+<html>
+<head>
+<style type="text/css">
+	.image{
+		float:left
+	}
+</style>
+</head>
+<body>
 $for f in folderMap.keys():
+	<div class="image">
 	<img src="${folderMap[f]}" height=100/><br>
 	<a href="/showFolder?name=${f.id}">$f.real_path</a><br>
+	</div>
+</body>
+</html>
+	
+

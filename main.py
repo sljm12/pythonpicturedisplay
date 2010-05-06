@@ -1,10 +1,13 @@
 #!/usr/bin/python.exe
 import web
 import repos
+import os.path
+import dircache
 
 urls=('/','index',
       '/showFolder','ShowFolder',
-      '/showIndex','ShowIndex')
+      '/showIndex','ShowIndex',
+      '/showDirectory','ShowDirectory')
 
 app=web.application(urls,globals())
 render=web.template.render('template/');
@@ -39,6 +42,26 @@ class ShowIndex:
             return pictures[0]
         else:
             return ''
+
+class ShowDirectory:
+    def GET(self):
+        i=web.input(Dir=None)
+        print i
+        path='c:/temp/pics'
+        if i.Dir != None:
+            path=os.path.join(path,i.Dir)
+        print path
+        dirfiles=dircache.listdir(path)
+        files=[]
+        dirs=[]
+        for df in dirfiles:
+            df_path=os.path.join(path,df)
+            if os.path.isdir(df_path):
+                dirs.append(df)
+            else:
+                files.append(df)
+        return render.showDirectory(i.Dir,path,files,dirs)
+    
     
 if __name__ == '__main__':
     app.run()
